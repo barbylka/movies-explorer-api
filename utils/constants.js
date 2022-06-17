@@ -1,0 +1,7 @@
+const SALT_ROUNDS = 10;
+const DUPLICATE_MONGOOSE_ERROR = 11000;
+
+module.exports = {
+  DUPLICATE_MONGOOSE_ERROR,
+  SALT_ROUNDS,
+};
