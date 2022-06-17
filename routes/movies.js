@@ -6,7 +6,7 @@ const {
   postMovie,
   deleteMovie,
 } = require('../controllers/movies');
-const { urlRegEx } = require('../utils/constants');
+const { urlValidator } = require('../utils/validation');
 
 const movieRouter = express.Router();
 
@@ -18,10 +18,10 @@ movieRouter.post('/', express.json(), celebrate({
     duration: Joi.number().required(),
     year: Joi.number().required(),
     description: Joi.string().required(),
-    image: Joi.string().pattern(urlRegEx).required(),
-    trailerLink: Joi.string().pattern(urlRegEx).required(),
-    thumbnail: Joi.string().pattern(urlRegEx).required(),
-    movieId: Joi.string().required(),
+    image: Joi.string().required().custom(urlValidator),
+    trailerLink: Joi.string().required().custom(urlValidator),
+    thumbnail: Joi.string().required().custom(urlValidator),
+    movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),

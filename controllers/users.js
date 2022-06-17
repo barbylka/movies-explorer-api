@@ -16,7 +16,7 @@ const getCurrentUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);
     if (user) {
-      res.status(200).send(user);
+      res.send(user);
     } else {
       throw new NotFoundError('Пользователь не найден');
     }
@@ -37,7 +37,7 @@ const updateUser = async (req, res, next) => {
       },
     );
     if (user) {
-      res.status(200).send(user);
+      res.send(user);
     } else {
       throw new NotFoundError('Пользователь не найден');
     }
@@ -46,6 +46,8 @@ const updateUser = async (req, res, next) => {
       next(new BadRequestError('Переданы некорректные данные'));
     } else if (err.name === 'CastError') {
       next(new BadRequestError('Передан некорректный id пользователя'));
+    } else if (err.code === DUPLICATE_MONGOOSE_ERROR) {
+      next(new ConflictError('Пользователь с таким email уже существует'));
     } else {
       next(err);
     }

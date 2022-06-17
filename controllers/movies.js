@@ -6,7 +6,7 @@ const NotFoundError = require('../errors/NotFoundError');
 const getUsersMovies = async (req, res, next) => {
   try {
     const movies = await Movie.find({ owner: req.user._id }).populate('owner');
-    res.status(200).send(movies);
+    res.send(movies);
   } catch (err) {
     next(err);
   }
@@ -58,7 +58,7 @@ const deleteMovie = async (req, res, next) => {
     const movie = await Movie.findById(req.params._id);
     if (movie && movie.owner.toString() === req.user._id) {
       await movie.remove();
-      res.status(200).send({
+      res.send({
         message: 'Фильм удален',
       });
     } else if (!movie) {

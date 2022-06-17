@@ -5,4 +5,5 @@ module.exports = (err, req, res, next) => {
     e.message = 'На сервере произошла ошибка';
   }
   res.status(e.statusCode).send({ message: e.message });
+  next();
 };
