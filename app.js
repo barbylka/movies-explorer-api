@@ -19,7 +19,7 @@ const app = express();
 app.use(cookieParser());
 
 app.use(cors({
-  origin: 'https:/diplomaa.nomoredomains.xyz',
+  origin: 'https://diplomaa.nomoredomains.xyz',
   credentials: true,
 }));
 
